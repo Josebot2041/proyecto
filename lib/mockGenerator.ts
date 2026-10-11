@@ -23,37 +23,44 @@ export interface EmployerSurvey {
   haContratado5Anios: boolean;
   proyeccionContratacion: string;
   nivelDemanda: string;
-  satisfaccionGeneral: number; // Escala Likert 1-5
+  satisfaccionGeneral: number;
 }
 
-const AREAS = [
+export const AREAS = [
   "IA",
   "Robótica",
   "Ingeniería de Software",
   "Base de Datos",
   "Redes de Datos y Seguridad",
 ];
-const FINANCIAMIENTO = ["Recursos Propios", "Beca Total", "Beca Parcial"];
-const NIVELES = ["Diplomado", "Especialidad", "Maestría", "Doctorado"];
-const RUBROS = [
+export const FINANCIAMIENTO = [
+  "Recursos Propios",
+  "Beca Total",
+  "Beca Parcial",
+];
+export const NIVELES = ["Diplomado", "Especialidad", "Maestría", "Doctorado"];
+export const RUBROS = [
   "Desarrollo de software",
   "Servicios de TI",
   "Telecomunicaciones",
   "Banca y finanzas",
   "Consultoría TI",
 ];
-const PROYECCIONES = [
+export const PROYECCIONES = [
   "Alta probabilidad",
   "Depende de proyectos",
   "Sin previsión",
 ];
 
-export function generateRandomData(sampleSize: number) {
+export function generateRandomData(
+  sampleGraduates: number,
+  sampleEmployers: number,
+) {
   const graduates: GraduateSurvey[] = [];
   const employers: EmployerSurvey[] = [];
 
   // Muestra de Titulados
-  for (let i = 0; i < sampleSize; i++) {
+  for (let i = 0; i < sampleGraduates; i++) {
     const aniosEjercicio = Math.floor(Math.random() * 15) + 1;
     const posgrado = Math.random() > 0.4;
 
@@ -79,9 +86,8 @@ export function generateRandomData(sampleSize: number) {
     });
   }
 
-  // Muestra de Empleadores (Proporcional a la muestra de titulados)
-  const numEmployers = Math.max(10, Math.floor(sampleSize * 0.25));
-  for (let j = 0; j < numEmployers; j++) {
+  // Muestra de Empleadores
+  for (let j = 0; j < sampleEmployers; j++) {
     employers.push({
       id: `emp-${j + 1}`,
       nombreEmpresa: `Empresa Tecnológica ${j + 1}`,
@@ -94,7 +100,7 @@ export function generateRandomData(sampleSize: number) {
       proyeccionContratacion:
         PROYECCIONES[Math.floor(Math.random() * PROYECCIONES.length)],
       nivelDemanda: NIVELES[Math.floor(Math.random() * NIVELES.length)],
-      satisfaccionGeneral: Math.floor(Math.random() * 3) + 3, // Puntuación Likert entre 3 y 5
+      satisfaccionGeneral: Math.floor(Math.random() * 3) + 3,
     });
   }
 
